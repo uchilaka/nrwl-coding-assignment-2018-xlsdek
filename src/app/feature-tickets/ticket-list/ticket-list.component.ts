@@ -1,7 +1,11 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { fromEvent, Subject, of, BehaviorSubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil, tap, filter, withLatestFrom, map } from 'rxjs/operators';
+import * as TicketActions from '../+store/ticket.actions';
 import { BackendService } from '../../backend.service';
-import { fromEvent, Subject } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged, switchMap, tap, takeUntil } from 'rxjs/operators';
+import { TicketEntityState } from '../models';
+import { getTickets } from '../+store/ticket.selectors';
 
 @Component({
   selector: 'app-ticket-list',
@@ -12,11 +16,17 @@ export class TicketListComponent implements OnInit, OnDestroy {
   onDestroy$ = new Subject();
   term: string;
   @ViewChild('search') searchInput: ElementRef<HTMLInputElement>;
+  private queryString$ = new BehaviorSubject(this.term);
 
-  tickets = this.backend.tickets();
+  // tickets = this.backend.tickets();
+  tickets = this.store.pipe(select(getTickets));
   users = this.backend.users();
 
-  runSearch$;
+  runSearch$: any;
+
+  clearTickets() {
+    this.store.dispatch(TicketActions.ClearTickets());
+  }
 
   ngOnDestroy() {
     this.onDestroy$.next();
@@ -27,15 +37,18 @@ export class TicketListComponent implements OnInit, OnDestroy {
       debounceTime(500),
       distinctUntilChanged(),
       takeUntil(this.onDestroy$),
-      tap(() => {
-        console.warn('Search for:', this.term);
-      })
+      tap(() => 
+        this.store.dispatch(TicketActions.UpdateTicketSearchTerm({ q: this.term }))
+      )
     );
     this.runSearch$.subscribe();
   }
   
-  constructor(@Inject(BackendService) private backend: BackendService) {
-    // this.runSearch$.subscribe();
+  constructor(
+    private backend: BackendService,
+    private store: Store<TicketEntityState>
+  ) {
+    this.store.dispatch(TicketActions.LoadTickets({ q: this.term }));
   }
 
 }

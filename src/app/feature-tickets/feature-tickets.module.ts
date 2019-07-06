@@ -10,6 +10,7 @@ import { featureTicketRoutes } from './ticket.routes';
 import { EffectsModule } from '@ngrx/effects';
 import { TicketEffects } from './+store/ticket.effects';
 import { StoreModule } from '@ngrx/store';
+import { featureTicketReducer } from './+store/ticket.reducer';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,15 @@ import { StoreModule } from '@ngrx/store';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(featureTicketRoutes),
-    StoreModule.forFeature('tickets', {}),
-    EffectsModule.forFeature([TicketEffects])
+    EffectsModule.forFeature([TicketEffects]),
+    StoreModule.forFeature('tickets', featureTicketReducer),
   ],
   exports: [
     TicketListComponent,
     TicketListItemComponent
+  ],
+  providers: [
+    
   ]
 })
 export class FeatureTicketsModule { }
