@@ -39,11 +39,15 @@ export class BackendService {
 
   lastId = 1;
 
-  constructor() { }
+  private findTicketById = (id: number) => {
+    return this.storedTickets.filter(ticket => ticket.id === id).shift();
+  }
 
-  private findTicketById = id =>
-    this.storedTickets.find(ticket => ticket.id === +id);
-  private findUserById = id => this.storedUsers.find(user => user.id === +id);
+  private findUserById = (id: number) => {
+    return this.storedUsers.filter(user => user.id === id).shift();
+  }
+
+  constructor() { }
 
   tickets() {
     return of(this.storedTickets).pipe(delay(randomDelay()));
