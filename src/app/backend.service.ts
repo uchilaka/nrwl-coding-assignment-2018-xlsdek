@@ -18,7 +18,9 @@ function randomDelay() {
   return Math.random() * 4000;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BackendService {
   storedTickets: Ticket[] = [
     {

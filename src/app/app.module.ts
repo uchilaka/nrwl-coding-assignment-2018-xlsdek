@@ -10,8 +10,12 @@ import {BackendService} from './backend.service';
   imports: [
     BrowserModule
   ],
-  providers: [BackendService],
-  bootstrap: [AppComponent]
+  providers: [{
+    provide: BackendService,
+    useClass: BackendService
+  }],
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule {
 

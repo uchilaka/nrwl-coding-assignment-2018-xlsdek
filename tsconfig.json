@@ -3,5 +3,6 @@
         "target": "es3",
         "module": "commonjs",
         "experimentalDecorators": true
-    }
+    },
+    "exclude": ["node_modules"]
 }

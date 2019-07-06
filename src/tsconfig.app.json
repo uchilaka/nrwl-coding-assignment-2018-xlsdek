@@ -2,6 +2,7 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "rootDir": ".",
-        "lib": ["dom", "es2015", "esnext"]
-    }
+        "lib": ["dom", "es2015", "esnext"],
+        "types": ["node", "jasmine"]
+    },
 }
