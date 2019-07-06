@@ -1,0 +1,28 @@
+:host {
+  display: grid;
+  grid-template-areas: '. main .';
+  grid-template-columns: 1fr auto 1fr;
+
+  form {
+    grid-area: main;
+    max-width: 96vw;
+    min-width: 320px;
+  }
+
+  .form-group {
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+  
+    .actions {
+      button {
+        margin-left: 1rem;
+  
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

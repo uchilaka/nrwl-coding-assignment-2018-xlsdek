@@ -1,25 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
+import { appRoutes } from './app.routes';
 import { BackendService } from './backend.service';
-import { TicketListComponent } from './ticket-list/ticket-list.component';
-import { TicketListItemComponent } from './ticket-list-item/ticket-list-item.component';
-import { TicketComponent } from './ticket/ticket.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TicketListComponent,
-    TicketListItemComponent,
-    TicketComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [{
-    provide: BackendService,
-    useClass: BackendService
-  }],
+  providers: [BackendService],
   bootstrap: [AppComponent],
   exports: []
 })

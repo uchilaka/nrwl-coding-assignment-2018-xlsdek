@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
-import { Ticket, User } from '../models';
+import { Ticket, User } from './feature-tickets/models';
 
 function randomDelay() {
   return Math.random() * 4000;

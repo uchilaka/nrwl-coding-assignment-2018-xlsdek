@@ -3,6 +3,9 @@
     "compilerOptions": {
         "rootDir": ".",
         "lib": ["dom", "es2015", "esnext"],
-        "types": ["node", "jasmine"]
+        "types": ["node", "jquery", "jasmine"],
+        "experimentalDecorators": true
     },
+    "include": ["**/*.ts"],
+    "exclude": ["**/*.spec.ts"]
 }

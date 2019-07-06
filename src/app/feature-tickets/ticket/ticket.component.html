@@ -1,0 +1,19 @@
+<form [formGroup]="ticketForm">
+  <div class="form-group">
+    <label>Assignee</label>
+    <select class="form-control" formControlName="assigneeId">
+      <option value="">(Select a user)</option>
+      <option *ngFor="let user of users|async" 
+          [value]="user.id">{{ user?.name }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" formControlName="description"></textarea>
+  </div>
+  <div class="actions">
+      <button class="btn btn-light">Save</button>
+      <button class="btn btn-outline-danger" routerLink="/tickets">Cancel</button>
+  </div>
+ 
+</form>

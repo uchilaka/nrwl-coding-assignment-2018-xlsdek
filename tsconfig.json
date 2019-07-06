@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es3",
+        "target": "es5",
         "module": "commonjs",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "typeRoots": ["node_modules/@types"]
     },
     "exclude": ["node_modules"]
 }

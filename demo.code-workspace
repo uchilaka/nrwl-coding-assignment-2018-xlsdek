@@ -11,6 +11,8 @@
 		"files.associations": {
 			"angular.json": "jsonc",
 			"tslint.json": "jsonc"
-		}
+		},
+		"editor.detectIndentation": true,
+		"editor.tabSize": 2
 	}
 }
