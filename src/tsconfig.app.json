@@ -1,14 +1,14 @@
 {
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-        "rootDir": ".",
-        "lib": ["dom", "es2015", "esnext", "esnext.array"],
-        "types": ["node", "jquery", "jasmine"],
-        "sourceMap": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "importHelpers": true
-    },
-    "include": ["**/*.ts"],
-    "exclude": ["**/*.spec.ts"]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "lib": ["dom", "es2015", "esnext", "esnext.array"],
+    "types": ["node", "jquery"],
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
 }

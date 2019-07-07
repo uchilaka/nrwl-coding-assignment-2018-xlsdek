@@ -4,7 +4,8 @@ import {
   EventEmitter,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { BehaviorSubject, fromEvent, Observable, Subject } from "rxjs";
@@ -25,7 +26,8 @@ import { Ticket, TicketEntityState, User } from "../models";
 @Component({
   selector: "app-ticket-list",
   templateUrl: "./ticket-list.component.html",
-  styleUrls: ["./ticket-list.component.scss"]
+  styleUrls: ["./ticket-list.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TicketListComponent implements OnInit, OnDestroy {
   isBusy$ = new BehaviorSubject(true);

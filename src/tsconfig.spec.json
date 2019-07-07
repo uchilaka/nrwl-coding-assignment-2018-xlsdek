@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "lib": ["dom", "es2015", "esnext", "esnext.array"],
+    "types": ["node", "jasmine", "jest", "jquery", "karma"]
+  },
+  "exclude": [],
+  "include": [
+    "**/*.spec.ts"
+  ]
+}
