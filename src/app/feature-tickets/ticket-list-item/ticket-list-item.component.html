@@ -6,10 +6,10 @@
 <div aria-label="Ticket actions">
   <button class="btn btn-light btn-sm"
           [disabled]="isBusy"
-          [routerLink]="['/tickets', ticket.id, 'edit']">Edit</button>
+          [routerLink]="['/tickets', ticket?.id, 'edit']">Edit</button>
   <button class="btn btn-sm btn-outline-success"
-          [class.btn-outline-success]="ticket.completed"
-          [class.btn-outline-primary]="!ticket.completed"
-          [disabled]="isBusy || ticket.completed"
-          (click)="markAsCompleteEmitter.emit(ticket)">{{ ticket.completed ? "Done" : "Complete" }}</button>
+          [class.btn-outline-success]="ticket?.completed"
+          [class.btn-outline-primary]="!ticket?.completed"
+          [disabled]="isBusy || ticket?.completed"
+          (click)="markAsCompleteEmitter.emit(ticket)">{{ ticket?.completed ? "Done" : "Complete" }}</button>
 </div>

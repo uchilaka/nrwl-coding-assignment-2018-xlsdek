@@ -1,14 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
-import { ticketEntityAdapter, TicketEntityState } from "../models";
+import {
+  ticketEntityAdapter,
+  TicketEntityState,
+  initialTicketEntityState
+} from "../models";
 import * as TicketActions from "./ticket.actions";
 
-export const intialTicketEntityState: TicketEntityState = {
-  ids: [],
-  entities: {}
-};
-
 export const featureTicketReducer = createReducer<TicketEntityState>(
-  intialTicketEntityState,
+  initialTicketEntityState,
   on(TicketActions.ClearTickets, state => ticketEntityAdapter.removeAll(state)),
   on(TicketActions.SelectTicketSuccess, (state, { ticket }) => ({
     ...ticketEntityAdapter.upsertOne(ticket, state),
