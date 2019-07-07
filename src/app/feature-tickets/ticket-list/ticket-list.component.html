@@ -1,15 +1,20 @@
 <div class="main">
-  <h2>Tickets</h2>
-  <div>
-      <button class="btn btn-outline-success" routerLink="/tickets/new">+ New</button>
-      <div class="form-group">
-        <input #search class="form-control" placeholder="Find a ticket" 
-          [(ngModel)]="term" />
-      </div>
+  <nav>
+    <h2>Tickets</h2>
+    <div aria-label="Ticket list actions">
+      <button class="btn btn-sm btn-outline-success"
+              routerLink="/tickets/new">+ New</button>
+    </div>
+  </nav>
+  <div class="form-group">
+    <input #search
+           class="form-control"
+           placeholder="Find a ticket"
+           [(ngModel)]="term" />
   </div>
-  <ul>
-    <li *ngFor="let t of tickets|async"> 
-      Ticket: {{t.id}}, {{t.description}}
-    </li>
-  </ul>    
+  <div class="ticket-list">
+    <app-ticket-list-item *ngFor="let t of tickets$|async"
+                          [ticket]="t"
+                          [assignee]="getAssignee$(t.assigneeId) | async"></app-ticket-list-item>
+  </div>
 </div>

@@ -1,0 +1,26 @@
+:host {
+  display: grid;
+  grid-template-areas: 'id user desc actions';
+  grid-template-columns: 1fr 2fr 6fr 3fr;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e8e8e8;
+
+  [aria-label="Ticket id"] {
+    grid-area: id;
+  }
+
+  [aria-label="Assignee"] {
+    grid-area: user;
+  }
+
+  [aria-label="Ticket description"] {
+    grid-area: desc;
+  }
+
+  [aria-label="Ticket actions"] {
+    grid-area: actions;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+}

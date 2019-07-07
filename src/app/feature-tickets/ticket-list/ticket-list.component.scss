@@ -6,6 +6,25 @@
   .main {
     grid-area: main;
     max-width: 96vw;
-    min-width: 320px;
+    width: 480px;
+  }
+
+
+  nav {
+    display: grid;
+    grid-template-areas: 'title actions';
+    grid-template-columns: 8fr 2fr;
+
+    h2 {
+      grid-area: title;
+    }
+
+    [aria-label="Ticket list actions"] {
+      grid-area: actions;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+    }
   }
 }

@@ -14,14 +14,14 @@
       display: block;
       margin-top: 1rem;
     }
-  
-    .actions {
-      button {
-        margin-left: 1rem;
-  
-        &:first-of-type {
-          margin-left: 0;
-        }
+  }
+
+  .actions {
+    button {
+      margin-left: 0.5rem;
+
+      &:first-of-type {
+        margin-left: 0;
       }
     }
   }

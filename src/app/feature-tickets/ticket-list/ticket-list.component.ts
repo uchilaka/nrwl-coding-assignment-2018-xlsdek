@@ -1,28 +1,62 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { fromEvent, Subject, of, BehaviorSubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil, tap, filter, withLatestFrom, map } from 'rxjs/operators';
-import * as TicketActions from '../+store/ticket.actions';
-import { BackendService } from '../../backend.service';
-import { TicketEntityState } from '../models';
-import { getTickets } from '../+store/ticket.selectors';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import { fromEvent, Subject, of, Observable, BehaviorSubject } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  takeUntil,
+  tap,
+  withLatestFrom,
+  filter,
+  map,
+  switchMap
+} from "rxjs/operators";
+import * as TicketActions from "../+store/ticket.actions";
+import { getTickets } from "../+store/ticket.selectors";
+import { BackendService } from "../../backend.service";
+import { TicketEntityState, User } from "../models";
 
 @Component({
-  selector: 'app-ticket-list',
-  templateUrl: './ticket-list.component.html',
-  styleUrls: ['./ticket-list.component.scss']
+  selector: "app-ticket-list",
+  templateUrl: "./ticket-list.component.html",
+  styleUrls: ["./ticket-list.component.scss"]
 })
 export class TicketListComponent implements OnInit, OnDestroy {
   onDestroy$ = new Subject();
+  @ViewChild("search") searchInput: ElementRef<HTMLInputElement>;
+  /**
+   * Search term
+   */
   term: string;
-  @ViewChild('search') searchInput: ElementRef<HTMLInputElement>;
-  private queryString$ = new BehaviorSubject(this.term);
-
-  // tickets = this.backend.tickets();
-  tickets = this.store.pipe(select(getTickets));
-  users = this.backend.users();
+  /**
+   * Obs of tickets
+   */
+  tickets$ = this.store.pipe(select(getTickets));
+  /**
+   * Obs of users
+   */
+  private _users$ = this.backend.users().pipe(
+    takeUntil(this.onDestroy$),
+    tap(users => this.userList$.next(users))
+  );
+  /**
+   * User lookup
+   */
+  userList$ = new BehaviorSubject<User[]>([]);
 
   runSearch$: any;
+
+  getAssignee$(id: number): Observable<User> {
+    return this.userList$
+      .asObservable()
+      .pipe(switchMap(users => users.filter(user => user.id === id)));
+  }
 
   clearTickets() {
     this.store.dispatch(TicketActions.ClearTickets());
@@ -33,22 +67,24 @@ export class TicketListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.runSearch$ = fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+    this.runSearch$ = fromEvent(this.searchInput.nativeElement, "keyup").pipe(
       debounceTime(500),
       distinctUntilChanged(),
       takeUntil(this.onDestroy$),
-      tap(() => 
-        this.store.dispatch(TicketActions.UpdateTicketSearchTerm({ q: this.term }))
+      tap(() =>
+        this.store.dispatch(
+          TicketActions.UpdateTicketSearchTerm({ q: this.term })
+        )
       )
     );
     this.runSearch$.subscribe();
   }
-  
+
   constructor(
     private backend: BackendService,
     private store: Store<TicketEntityState>
   ) {
-    this.store.dispatch(TicketActions.LoadTickets({ q: this.term }));
+    this._users$.subscribe();
+    this.store.dispatch(TicketActions.LoadTickets());
   }
-
 }

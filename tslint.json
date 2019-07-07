@@ -3,7 +3,11 @@
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {},
+    "rulesDirectory": [
+      "node_modules/@nrwl/schematics/src/tslint",
+      "node_modules/codelyzer"
+    ],
+  "jsRules": {},
     "rules": {
         "arrow-return-shorthand": true,
         "callable-types": true,
@@ -62,8 +66,5 @@
         "use-pipe-transform-interface": true,
         "component-class-suffix": true,
         "directive-class-suffix": true        
-    },
-    "rulesDirectory": [
-        "node_modules/@nrwl/schematics/src/tslint"
-    ]
+    }
 }

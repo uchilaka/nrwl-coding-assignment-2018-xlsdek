@@ -1,0 +1,33 @@
+{
+  "indent_size": 2,
+  "indent_char": " ",
+  "wrap_line_length": 100,
+  "wrap_attributes": "force-aligned",
+  "css": {
+    "indent_size": 2
+  },
+  "beautify.language": {
+    "js": {
+      "type": [
+        "javascript",
+        "json"
+      ],
+      "filename": [
+        ".jshintrc",
+        ".jsbeautifyrc"
+      ],
+      "ext": [
+        "js",
+        "json"
+      ]
+    },
+    "css": [
+      "css",
+      "scss"
+    ],
+    "html": [
+      "htm",
+      "html"
+    ]
+  }
+}

@@ -1,3 +1,9 @@
-<p>
-  ticket-list-item works!
-</p>
+<div aria-label="Ticket id">#{{ ticket?.id }}</div>
+<div aria-label="Assignee">{{ assignee?.name }}</div>
+<div aria-label="Ticket description">
+  {{ ticket?.description }}
+</div>
+<div aria-label="Ticket actions">
+  <button class="btn btn-light btn-sm"
+          [routerLink]="['/tickets', ticket.id, 'edit']">Edit</button>
+</div>

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
-import { Ticket, User } from './feature-tickets/models';
+import { Injectable } from "@angular/core";
+import { Observable, of, throwError } from "rxjs";
+import { delay, tap } from "rxjs/operators";
+import { Ticket, User } from "./feature-tickets/models";
 
 function randomDelay() {
   return Math.random() * 4000;
@@ -12,31 +12,34 @@ export class BackendService {
   storedTickets: Ticket[] = [
     {
       id: 1,
-      description: 'Install a monitor arm',
+      description: "Install a monitor arm",
       assigneeId: 111,
       completed: false
     },
     {
       id: 2,
-      description: 'Move the desk to the new location',
+      description: "Move the desk to the new location",
       assigneeId: 111,
       completed: false
     }
   ];
 
-  storedUsers: User[] = [{ id: 111, name: 'Victor' }];
+  storedUsers: User[] = [
+    { id: 111, name: "Victor" },
+    { id: 112, name: "Lucas" }
+  ];
 
-  lastId = 1;
+  lastId = 2;
 
   private findTicketById = (id: number) => {
     return this.storedTickets.filter(ticket => ticket.id === id).shift();
-  }
+  };
 
   private findUserById = (id: number) => {
     return this.storedUsers.filter(user => user.id === id).shift();
-  }
+  };
 
-  constructor() { }
+  constructor() {}
 
   tickets() {
     return of(this.storedTickets).pipe(delay(randomDelay()));
@@ -81,7 +84,7 @@ export class BackendService {
       );
     }
 
-    return throwError(new Error('ticket or user not found'));
+    return throwError(new Error("ticket or user not found"));
   }
 
   complete(ticketId: number, completed: boolean) {
@@ -95,6 +98,6 @@ export class BackendService {
       );
     }
 
-    return throwError(new Error('ticket not found'));
+    return throwError(new Error("ticket not found"));
   }
 }

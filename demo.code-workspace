@@ -1,18 +1,19 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"editor.codeActionsOnSave": {
-			"source.fixAll.tslint": true
-		},
-		"files.associations": {
-			"angular.json": "jsonc",
-			"tslint.json": "jsonc"
-		},
-		"editor.detectIndentation": true,
-		"editor.tabSize": 2
-	}
+  "folders": [{
+    "path": "."
+  }],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.tslint": true
+    },
+    "files.associations": {
+      "angular.json": "jsonc",
+      "tslint.json": "jsonc"
+    },
+    "editor.detectIndentation": true,
+    "editor.tabSize": 2,
+    "html.format.wrapAttributes": "force-aligned",
+    "editor.formatOnSave": true,
+    "breadcrumbs.enabled": true
+  }
 }

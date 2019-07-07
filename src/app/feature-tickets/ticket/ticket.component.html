@@ -1,19 +1,30 @@
 <form [formGroup]="ticketForm">
-  <div class="form-group">
-    <label>Assignee</label>
-    <select class="form-control" formControlName="assigneeId">
-      <option value="">(Select a user)</option>
-      <option *ngFor="let user of users|async" 
-          [value]="user.id">{{ user?.name }}</option>
-    </select>
-  </div>
+  <ng-container *ngIf="!!(ticketId$ | async)">
+    <h2>Editing Ticket #{{ ticketId$ | async }}</h2>
+    <div class="form-group">
+      <label>Assignee</label>
+      <select class="form-control"
+              formControlName="assigneeId">
+        <option value="">(Select a user)</option>
+        <option *ngFor="let user of users$|async"
+                [value]="user.id">{{ user?.name }}</option>
+      </select>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!(ticketId$ | async)">
+    <h2>Editing Ticket</h2>
+  </ng-container>
   <div class="form-group">
     <label>Description</label>
-    <textarea class="form-control" formControlName="description"></textarea>
+    <textarea class="form-control"
+              [readOnly]="!!(ticket$ | async)"
+              formControlName="description"></textarea>
   </div>
   <div class="actions">
-      <button class="btn btn-light">Save</button>
-      <button class="btn btn-outline-danger" routerLink="/tickets">Cancel</button>
+    <button class="btn btn-outline-success"
+            [disabled]="ticketForm.invalid"
+            (click)="submit(ticketForm.value)">Save</button>
+    <button class="btn btn-outline-danger"
+            routerLink="/tickets">Cancel</button>
   </div>
- 
 </form>
