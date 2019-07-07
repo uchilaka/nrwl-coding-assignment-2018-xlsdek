@@ -6,11 +6,7 @@ import { Ticket, User } from "../models";
   templateUrl: "./ticket-list-item.component.html",
   styleUrls: ["./ticket-list-item.component.scss"]
 })
-export class TicketListItemComponent implements OnInit {
+export class TicketListItemComponent {
   @Input() ticket: Ticket;
   @Input() assignee: User;
-
-  constructor() {}
-
-  ngOnInit() {}
 }

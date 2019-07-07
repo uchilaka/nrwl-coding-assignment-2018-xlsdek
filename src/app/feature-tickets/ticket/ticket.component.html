@@ -17,12 +17,12 @@
   <div class="form-group">
     <label>Description</label>
     <textarea class="form-control"
-              [readOnly]="!!(ticket$ | async)"
+              [readOnly]="!!(ticket$ | async) || (isBusy$ | async)"
               formControlName="description"></textarea>
   </div>
   <div class="actions">
     <button class="btn btn-outline-success"
-            [disabled]="ticketForm.invalid"
+            [disabled]="ticketForm.invalid || (isBusy$ | async)"
             (click)="submit(ticketForm.value)">Save</button>
     <button class="btn btn-outline-danger"
             routerLink="/tickets">Cancel</button>

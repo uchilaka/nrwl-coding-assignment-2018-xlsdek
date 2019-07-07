@@ -14,7 +14,7 @@ import {
   defaultIfEmpty,
   takeUntil
 } from "rxjs/operators";
-import { of, Subject } from "rxjs";
+import { of, Subject, BehaviorSubject } from "rxjs";
 
 @Component({
   selector: "app-ticket",
@@ -22,6 +22,7 @@ import { of, Subject } from "rxjs";
   styleUrls: ["./ticket.component.scss"]
 })
 export class TicketComponent implements OnInit, OnDestroy {
+  isBusy$ = new BehaviorSubject(true);
   onDestroy$ = new Subject();
 
   users$ = this.service.users();
@@ -37,10 +38,15 @@ export class TicketComponent implements OnInit, OnDestroy {
     filter(ticketId => !!ticketId),
     tap(ticketId => {
       // this.ticketForm.patchValue({ id: ticketId });
-      this.store.dispatch(
-        TicketActions.SelectTicket({ ticketId: Number(ticketId) })
-      );
+      if (!!ticketId) {
+        this.store.dispatch(
+          TicketActions.SelectTicket({ ticketId: Number(ticketId) })
+        );
+      } else {
+        this.isBusy$.next(false);
+      }
     }),
+    filter(ticketId => !!ticketId),
     map(ticketId => ticketId)
   );
 
@@ -49,6 +55,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     filter(ticket => !!ticket),
     tap(ticket => {
       console.warn("Selected ticket:", ticket);
+      this.isBusy$.next(false);
       this.ticketForm.patchValue(ticket);
     })
   );
@@ -70,6 +77,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   submit(ticket: Ticket) {
+    this.isBusy$.next(true);
     if (!!ticket.id) {
       this.saveTicket(ticket);
     } else {

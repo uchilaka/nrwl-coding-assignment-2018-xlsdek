@@ -28,6 +28,7 @@ import { TicketEntityState, User } from "../models";
   styleUrls: ["./ticket-list.component.scss"]
 })
 export class TicketListComponent implements OnInit, OnDestroy {
+  isBusy$ = new BehaviorSubject(true);
   onDestroy$ = new Subject();
   @ViewChild("search") searchInput: ElementRef<HTMLInputElement>;
   /**
@@ -43,7 +44,10 @@ export class TicketListComponent implements OnInit, OnDestroy {
    */
   private _users$ = this.backend.users().pipe(
     takeUntil(this.onDestroy$),
-    tap(users => this.userList$.next(users))
+    tap(users => {
+      this.userList$.next(users);
+      this.isBusy$.next(false);
+    })
   );
   /**
    * User lookup
@@ -71,11 +75,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
       debounceTime(500),
       distinctUntilChanged(),
       takeUntil(this.onDestroy$),
-      tap(() =>
+      tap(() => {
         this.store.dispatch(
           TicketActions.UpdateTicketSearchTerm({ q: this.term })
-        )
-      )
+        );
+      })
     );
     this.runSearch$.subscribe();
   }

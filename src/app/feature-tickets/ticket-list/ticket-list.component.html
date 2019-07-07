@@ -10,8 +10,10 @@
     <input #search
            class="form-control"
            placeholder="Find a ticket"
+           [readOnly]="isBusy$ | async"
            [(ngModel)]="term" />
   </div>
+  <div *ngIf="isBusy$ | async">Loading tickets...</div>
   <div class="ticket-list">
     <app-ticket-list-item *ngFor="let t of tickets$|async"
                           [ticket]="t"
