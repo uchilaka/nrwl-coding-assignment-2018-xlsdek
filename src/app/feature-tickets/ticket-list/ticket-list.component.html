@@ -16,6 +16,8 @@
   <div *ngIf="isBusy$ | async">Loading tickets...</div>
   <div class="ticket-list">
     <app-ticket-list-item *ngFor="let t of tickets$|async"
+                          [isBusy]="isBusy$ | async"
+                          [markAsCompleteEmitter]="isCompleteEvent$"
                           [ticket]="t"
                           [assignee]="getAssignee$(t.assigneeId) | async"></app-ticket-list-item>
   </div>

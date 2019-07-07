@@ -22,5 +22,13 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
+
+    button {
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      margin-left: 0.5rem;
+    }
   }
 }

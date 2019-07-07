@@ -90,6 +90,9 @@ export const CompleteTicket = createAction(
 );
 export const CompleteTicketSuccess = createAction(
   "Complete ticket success",
-  props()
+  props<{ ticket: Ticket }>()
 );
-export const CompleteTicketFailure = createAction("Complete ticket failure");
+export const CompleteTicketFailure = createAction(
+  "Complete ticket failure",
+  props<{ error: any }>()
+);

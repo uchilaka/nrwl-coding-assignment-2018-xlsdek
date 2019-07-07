@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter } from "@angular/core";
 import { Ticket, User } from "../models";
 
 @Component({
@@ -7,6 +7,8 @@ import { Ticket, User } from "../models";
   styleUrls: ["./ticket-list-item.component.scss"]
 })
 export class TicketListItemComponent {
+  @Input() isBusy: boolean;
+  @Input() markAsCompleteEmitter = new EventEmitter<Ticket>();
   @Input() ticket: Ticket;
   @Input() assignee: User;
 }

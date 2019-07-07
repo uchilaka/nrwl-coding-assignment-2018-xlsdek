@@ -34,5 +34,11 @@ export const featureTicketReducer = createReducer<TicketEntityState>(
       { id: ticket.id, changes: { assigneeId: ticket.assigneeId } },
       state
     )
+  ),
+  on(TicketActions.CompleteTicketSuccess, (state, { ticket }) =>
+    ticketEntityAdapter.updateOne(
+      { id: ticket.id, changes: { completed: ticket.completed } },
+      state
+    )
   )
 );

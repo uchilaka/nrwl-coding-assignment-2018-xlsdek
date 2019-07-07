@@ -67,6 +67,15 @@ export class TicketEffects {
     )
   );
 
+  completeTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.CompleteTicket),
+      switchMap(({ ticketId }) => this.service.complete(ticketId, true)),
+      map(ticket => TicketActions.CompleteTicketSuccess({ ticket })),
+      catchError(error => of(TicketActions.CompleteTicketFailure({ error })))
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private store: Store<TicketEntityState>,
